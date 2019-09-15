@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const router = express.Router();
 const { exec } = require('child_process');
 const getDirContent = require('../../utils/getDirContent');
@@ -113,5 +114,20 @@ router.post('/:repositoryId', (req, res) => {
     });
 });
 
-module.exports = router;
+// @route    GET /api/repos/:repositoryId
+// @desc     Возвращает объект, в котором ключ - это символ, а значение - количество таких символов в репозитории.
+// @access   Public
+router.get('/:repositoryId/count', (req, res) => {
+    const { repositoryId } = req.params;
+    const pathToCurrentDir = path.resolve(__dirname, '../..').replace(/\\/g, '/');
 
+    createChildProcess(
+        'bash',
+        [`${pathToCurrentDir}/utils/countCharsInRepo.sh`],
+        `${pathToRepos}/${repositoryId}`,
+        'string',
+        res
+    );
+});
+
+module.exports = router;
