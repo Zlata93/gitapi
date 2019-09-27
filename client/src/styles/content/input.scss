@@ -1,0 +1,19 @@
+.Input {
+  display: flex;
+  align-items: center;
+
+  &-Wrapper {
+    align-self: center;
+  }
+
+  &-Label {
+    margin-right: 15px;
+  }
+
+  &-Input {
+    box-sizing: border-box;
+    padding: 7px 15px;
+    border-radius: 3px;
+    border: 1px solid var(--ghost);
+  }
+}
