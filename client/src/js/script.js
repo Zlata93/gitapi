@@ -1,21 +1,25 @@
 import '../styles/index.scss';
 
-import Store from './store';
-import InputView from "./views/InputView";
-import TableView from "./views/TableView";
-import reducer from "./reducer";
-
 console.log('Hi!');
 
+import reducer from "./redux-app/Reducer";
+import Store from './redux-app/Store';
+import TableView from "./redux-app/views/TableView";
+import FilterView from "./redux-app/views/FilterView";
+
 const store = new Store(reducer);
-
-const inputWrapper = document.querySelector('.Input-Wrapper');
-new InputView(inputWrapper, store);
-
-// const files = document.querySelectorAll('.File');
-// console.log('Files: ', files[0].lastChild.textContent.trim());
-// files.forEach(file => console.log(file.lastChild.textContent.trim()));
 
 const tableWrapper = document.querySelector('.Table-Body');
 new TableView(tableWrapper, store);
 
+const inputWrapper = document.querySelector('.Input-Wrapper');
+new FilterView(inputWrapper, store);
+
+const files = fetch('http://localhost:5000/api/repos/deti/tree/develop/reusable')
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.log('!!!', err));
+
+// commit my implementation
+// write applyMiddleware
+// write thunk

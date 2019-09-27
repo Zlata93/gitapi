@@ -4,6 +4,10 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+});
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use('/api/repos', require('./routes/api/repos'));
