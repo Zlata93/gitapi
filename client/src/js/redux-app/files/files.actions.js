@@ -18,6 +18,7 @@ export const fetchFilesStart = () => ({
 export const fetchFilesStartAsync = () => {
     return (dispatch, state) => {
         dispatch(fetchFilesStart());
+        // TODO: заменить на нужный адрес для тестирования
         fetch('http://localhost:5000/api/repos/react/')
             .then(res => res.json())
             .then(res => dispatch(fetchFilesSuccess(res)))
