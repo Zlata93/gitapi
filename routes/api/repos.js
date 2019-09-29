@@ -61,7 +61,7 @@ router.get(['/:repositoryId/tree/:commitHash/:path([^/]*)', '/:repositoryId'], (
         'git',
         ['ls-tree', '--name-only', `${commitHash}`],
         `${pathToRepos}/${repositoryId}/${path ? path : ''}`,
-        'commaString',
+        'files',
         res
     );
 });

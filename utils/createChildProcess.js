@@ -35,6 +35,17 @@ function createChildProcess(command, options, cwd, outputType, res, page, limit)
                 case 'array':
                     output = output.split('\n');
                     break;
+                case 'files':
+                    const arr = output.split('\n');
+                    output = [];
+                    for (let item of arr) {
+                        if (item === '') continue;
+                        const file = {};
+                        file.name = item;
+                        file.type = item.includes('.') ? 'code' : 'dir';
+                        output.push(file);
+                    }
+                    break;
                 case 'blob':
                     output = Buffer.from(output);
                     break;
