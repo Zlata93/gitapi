@@ -1,7 +1,7 @@
-import View from "../View";
-import { setFilterAction } from "../actions";
+import View from "../entities/View";
+import { setFilterAction } from "../filter/filter.actions";
 
-class FilterView extends View {
+class InputView extends View {
     constructor(el, store) {
         super(el, store);
         this._onChange = this._onChange.bind(this);
@@ -26,4 +26,4 @@ class FilterView extends View {
     }
 }
 
-export default FilterView;
+export default InputView;

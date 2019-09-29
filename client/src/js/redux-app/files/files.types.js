@@ -1,9 +1,7 @@
-const Types = {
-    INIT_TABLE: 'INIT_TABLE',
-    SET_FILTER: 'SET_FILTER',
+const fileTypes = {
     FETCH_FILES_START: 'FETCH_FILES_START',
     FETCH_FILES_SUCCESS: 'FETCH_FILES_SUCCESS',
     FETCH_FILES_FAILURE: 'FETCH_FILES_FAILURE',
 };
 
-export default Types;
+export default fileTypes;

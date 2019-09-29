@@ -4,7 +4,6 @@ class View {
         this._el = el;
         // отслеживание изменений в Store
         this._unsubscribe = store.subscribe(this);
-        console.log(store.getState())
         this.preRender(store.getState());
     }
 

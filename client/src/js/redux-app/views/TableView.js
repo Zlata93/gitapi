@@ -1,11 +1,10 @@
-import View from "../View";
-import { fetchFilesStart } from "../actions";
+import View from "../entities/View";
+import { fetchFilesStartAsync } from "../files/files.actions";
 
 class TableView extends View {
     constructor(el, store) {
         super(el, store);
-        // debugger;
-        super.dispatch(fetchFilesStart());
+        super.dispatch(fetchFilesStartAsync());
     }
 
     renderFiles(files) {
