@@ -1,41 +1,24 @@
 import View from "../View";
-import { initTableAction } from "../actions";
+import { fetchFilesStart } from "../actions";
 
 class TableView extends View {
     constructor(el, store) {
         super(el, store);
-        this._files = [
-            {
-                name: 'api'
-            },
-            {
-                name: 'ci'
-            },
-            {
-                name: 'doc'
-            },
-            {
-                name: 'client'
-            },
-            {
-                name: 'server'
-            },
-            {
-                name: 'tests'
-            },
-            {
-                name: 'util'
-            },
-        ];
-        super.dispatch(initTableAction(this._files));
+        // debugger;
+        super.dispatch(fetchFilesStart());
     }
 
     renderFiles(files) {
-        const result = files.map(file => `
+        files.sort((a, b) => a.type.length - b.type.length);
+        const result = files.map(file => {
+            if (file.name.includes('README')) {
+                file.type = 'file';
+            }
+            return `
                 <tr class="Table-Row">
                     <td class="Table-Cell Table-Cell">
                         <div class="File File_type_dir">
-                            <div class="File-Icon File-Icon_type_dir"></div>
+                            <div class="File-Icon File-Icon_type_${file.type}"></div>
                             ${file.name}
                         </div>
                     </td>
@@ -48,15 +31,16 @@ class TableView extends View {
                     </td>
                     <td class="Table-Cell">1 min ago</td>
                 </tr>
-            `);
+            `});
         return result.join('');
     }
 
     render({ filter: { filter }, files: { files } }) {
+        const filterStr = filter.trim().toLowerCase();
         if (filter === '') {
             return this.renderFiles(files);
         }
-        return this.renderFiles(files.filter(file => file.name.includes(filter)));
+        return this.renderFiles(files.filter(file => file.name.toLowerCase().includes(filterStr)));
     }
 
     destroy() {

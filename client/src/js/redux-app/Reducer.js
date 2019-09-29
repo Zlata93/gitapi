@@ -1,11 +1,21 @@
 import Types from "./Types";
 
-const filesReducer = (state = { files: [] }, action) => {
+const filesReducer = (state = { files: [], error: '' }, action) => {
     switch (action.type) {
         case Types.INIT_TABLE:
             return {
                 ...state,
                 files: action.payload
+            };
+        case Types.FETCH_FILES_SUCCESS:
+            return {
+                ...state,
+                files: action.payload.output
+            };
+        case Types.FETCH_FILES_FAILURE:
+            return {
+                ...state,
+                error: action.payload
             };
         default:
             return state;

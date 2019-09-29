@@ -1,8 +1,9 @@
 class Store {
-    constructor(reducer, initState) {
+    constructor(reducer, middlewares, initState) {
         this._state = initState;
         this._reducer = reducer;
         this._listeners = [];
+        this._middlewares = middlewares;
         this.dispatch({});
     }
 
@@ -24,8 +25,23 @@ class Store {
         }
     }
 
+    // dispatch() {
+    //     let dispatch = this._dispatch;
+    //     this._middlewares.forEach(middleware => {
+    //         dispatch = middleware(dispatch, this._state)(action);
+    //     });
+    //     return dispatch;
+    // }
+
     // метод обновления данных
     dispatch(action) {
+        // if (typeof action === 'function') {
+        //     action(this.dispatch.bind(this), this._state);
+        //     return;
+        // }
+        this._middlewares.forEach(middleware => {
+            middleware(this.dispatch.bind(this), this._state)(action);
+        });
         this._state = this._reducer(this._state, action);
         this._notifySubscribers();
     }
