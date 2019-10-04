@@ -33,7 +33,32 @@ function createChildProcess(command, options, cwd, outputType, res, page, limit)
         } else {
             switch (outputType) {
                 case 'array':
-                    output = output.split('\n');
+                    output = output.replace('*', '').split('\n');
+                    break;
+                case 'filesArray':
+                    let filesOutput = [];
+                    let files = output.split('\n');
+                    files = files.filter(item => item);
+                    files.forEach((file, i) => {
+                        const obj = {};
+                        obj.name = file;
+                        obj.id = i;
+                        obj.type = file.includes('.') ? 'file' : 'dir';
+                        filesOutput.push(obj);
+                    });
+                    output = filesOutput.sort((a, b) => a.type.length - b.type.length);
+                    break;
+                case 'branchArray':
+                    let branchOutput = [];
+                    let branches = output.replace('*', '').split('\n');
+                    branches = branches.filter(item => item);
+                    branches.forEach((branch, i) => {
+                        const obj = {};
+                        obj.name = branch;
+                        obj.id = i;
+                        branchOutput.push(obj);
+                    });
+                    output = branchOutput;
                     break;
                 case 'blob':
                     output = Buffer.from(output);

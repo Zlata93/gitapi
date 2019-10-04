@@ -35,6 +35,21 @@ router.get('/:repositoryId/commits/:commitHash', (req, res) => {
     );
 });
 
+// @route    GET /api/repos/:repositoryId/branches/:branch
+// @desc     Возвращает массив веток репозитория
+// @access   Public
+router.get('/:repositoryId/branches', (req, res) => {
+    const { repositoryId } = req.params;
+
+    createChildProcess(
+        'git',
+        ['branch'],
+        `${pathToRepos}/${repositoryId}`,
+        'branchArray',
+        res
+    );
+});
+
 // @route    GET /api/repos/:repositoryId/commits/:commitHash/diff
 // @desc     Возвращает diff коммита в виде строки
 // @access   Public
@@ -55,13 +70,13 @@ router.get('/:repositoryId/commits/:commitHash/diff', (req, res) => {
 //           То, что в скобках - опционально, если отсутствует и branchName, и path -
 //           отдать актуальное содержимое в корне в главной ветке репозитория.
 // @access   Public
-router.get(['/:repositoryId/tree/:commitHash/:path([^/]*)', '/:repositoryId'], (req, res) => {
+router.get(['/:repositoryId/tree/:commitHash/:path([^/]*)', '/:repositoryId', '/:repositoryId/tree/:commitHash'], (req, res) => {
     const { repositoryId, commitHash = 'master', path } = req.params;
     createChildProcess(
         'git',
         ['ls-tree', '--name-only', `${commitHash}`],
         `${pathToRepos}/${repositoryId}/${path ? path : ''}`,
-        'commaString',
+        'filesArray',
         res
     );
 });

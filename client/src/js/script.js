@@ -9,11 +9,11 @@ import FilterView from "./redux-app/views/FilterView";
 
 const store = new Store(reducer);
 
-const tableWrapper = document.querySelector('.Table-Body');
-new TableView(tableWrapper, store);
-
-const inputWrapper = document.querySelector('.Input-Wrapper');
-new FilterView(inputWrapper, store);
+// const tableWrapper = document.querySelector('.Table-Body');
+// new TableView(tableWrapper, store);
+//
+// const inputWrapper = document.querySelector('.Input-Wrapper');
+// new FilterView(inputWrapper, store);
 
 const files = fetch('http://localhost:5000/api/repos/deti/tree/develop/reusable')
     .then(res => res.json())
