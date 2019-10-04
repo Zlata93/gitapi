@@ -63,6 +63,9 @@ function createChildProcess(command, options, cwd, outputType, res, page, limit)
                 case 'blob':
                     output = Buffer.from(output);
                     break;
+                case 'string':
+                    output = output.replace(/\n/g, '<br/>');
+                    break;
                 case 'commaString':
                     const outStr = output.replace(/\n/g, ', ');
                     output = outStr.slice(0, outStr.length - 2);

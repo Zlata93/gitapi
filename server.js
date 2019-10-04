@@ -4,6 +4,8 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+console.log(process.env.NODE_PORT);
+
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     next();

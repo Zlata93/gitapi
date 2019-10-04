@@ -91,7 +91,7 @@ router.get('/:repositoryId/blob/:commitHash/:pathToFile([^/]*)', (req, res) => {
         'git',
         ['show', `${commitHash}~:${pathToFile}`],
         `${pathToRepos}/${repositoryId}`,
-        'blob',
+        'string',
         res
     );
 });
